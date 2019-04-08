@@ -7,11 +7,10 @@ class Days extends React.Component {
       <div>
         <h1>Today's Weather {this.props.city}{this.props.today}</h1>
         <div className="days">
-          <Day />
-          <Day />
-          <Day />
-          <Day />
-          <Day />
+          {this.props.data.city.map( (elem) => {
+            return <Day day={elem} />
+            })
+          }
         </div>
       </div>
     )

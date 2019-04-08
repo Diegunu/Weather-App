@@ -5,6 +5,25 @@ import DetailedForecast from './DetailedForecast';
 
 class WeatherApp extends React.Component {
 
+ constructor() {
+    super();
+    this.state = {
+      city: [],
+      currentDay:{}
+    }
+  }
+
+componentDidMount(){
+  fetch(`${process.env.PUBLIC_URL}/sample-city.json`)
+  .then(res => res.json() )
+  .then(data => {
+    this.setState({
+      city:data,
+      currentDay:data[0]
+    })
+  })
+}
+
   today() {
      return new Date().toLocaleDateString('en-US',
         {
@@ -17,8 +36,7 @@ class WeatherApp extends React.Component {
   render() {
     return (
       <main>
-        <Days today={ this.today() }
-           city={ this.props.match.params.weatherid} />
+        <Days cityState= {this.props.match.params.weatherId} data = {this.state}> </Days>
         <DetailedForecast />
       </main>
     )
