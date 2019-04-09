@@ -9,9 +9,15 @@ class WeatherApp extends React.Component {
     super();
     this.state = {
       city: [],
-      currentDay:{}
+      currentDay:{ day:{},  night:{}}
     }
   }
+
+updateCurrentDay = (day) => {
+  this.setState({
+    currentDay:day
+  })
+}
 
 componentDidMount(){
   fetch(`${process.env.PUBLIC_URL}/sample-city.json`)
@@ -36,8 +42,11 @@ componentDidMount(){
   render() {
     return (
       <main>
-        <Days cityState= {this.props.match.params.weatherId} data = {this.state}> </Days>
-        <DetailedForecast />
+        <Days cityState= {this.props.match.params.weatherId}
+          data = {this.state}
+          updateCurrentDay= {this.updateCurrentDay}
+          currentDay = {this.state.currentDay}></Days>
+        <DetailedForecast currentDay={this.state.currentDay} />
       </main>
     )
   }
